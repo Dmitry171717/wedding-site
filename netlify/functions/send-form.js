@@ -13,6 +13,7 @@ exports.handler = async (event) => {
       " " +
       now.toLocaleTimeString("ru-RU");
 
+    console.log("НОВЫЙ ОТВЕТ:");
     console.log({
       date,
       name,
@@ -28,6 +29,10 @@ exports.handler = async (event) => {
     };
 
   } catch (error) {
+
+    console.log("ОШИБКА:");
+    console.log(error);
+
     return {
       statusCode: 500,
       body: JSON.stringify({
