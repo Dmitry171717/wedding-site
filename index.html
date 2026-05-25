@@ -1411,6 +1411,22 @@
         </div>
 
         <button type="submit">Отправить ответ</button>
+		
+		<div id="successMessage"
+        style="
+        display:none;
+        margin-top:20px;
+        padding:18px;
+        border-radius:18px;
+        background:rgba(141,154,131,0.12);
+        border:1px solid rgba(141,154,131,0.4);
+        text-align:center;
+        color:#4e5d48;
+        font-weight:600;
+        ">
+        ♡ Спасибо! Ваш ответ успешно отправлен
+        </div>
+		
       </form>
     </div>
   </section>
@@ -1485,7 +1501,7 @@ async function sendForm(event) {
       throw new Error('Ошибка отправки');
     }
 
-    alert('Спасибо! Ваш ответ отправлен.');
+    document.getElementById('successMessage').style.display='block';
     form.reset();
 
   } catch (error) {
