@@ -1,4 +1,4 @@
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiXa6aEnDRbbkzJAAzu_fHdsBEW3Tf3yfP0-D_pmBX61UYE0oFcKtmGa-2E15Z_-pZ/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzACM0al5yKqzIlXs1wwwNC5VecYCb2irtEzUVP5YDOMo_lce4myeklTV-09-7QtRjV/exec';
 
 exports.handler = async (event) => {
   try {
