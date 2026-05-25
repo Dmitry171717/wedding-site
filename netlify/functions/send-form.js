@@ -20,9 +20,12 @@ exports.handler = async (event) => {
       })
     });
 
-    if (!response.ok) {
-      throw new Error('Google Script error');
-    }
+    const text = await response.text();
+console.log('Google Script response:', text);
+
+if (!response.ok) {
+throw new Error('Google Script error: ' + text);
+}
 
     return {
       statusCode: 200,
