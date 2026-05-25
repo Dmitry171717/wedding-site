@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -395,7 +395,7 @@
 
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       margin-top: 10px;
     }
@@ -455,24 +455,20 @@
     .info-grid .card:nth-child(1)::after { content: "01"; }
     .info-grid .card:nth-child(2)::after { content: "02"; }
     .info-grid .card:nth-child(3)::after { content: "03"; }
+    .info-grid .card:nth-child(4)::after { content: "04"; }
 
     .card h3 {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
-    .card p {
-      font-family: 'Montserrat', Arial, sans-serif;
-      font-size: 18px;
-      color: var(--espresso);
-      line-height: 1.55;
-      letter-spacing: 0.2px;
-      font-weight: 500;
-    }
+    .card {
+    justify-content: flex-end;
+}
 
     .card p strong {
       display: inline-block;
@@ -1085,9 +1081,10 @@
       }
 
       .card p {
-        font-size: 23px;
-        line-height: 1.15;
-      }
+    font-size: 23px;
+    line-height: 1.15;
+    margin: 0;
+}
 
       .countdown-item {
         padding: 16px 6px;
@@ -1230,16 +1227,354 @@
         letter-spacing: 4px;
       }
     }
+  
+    /* === Envelope opening screen === */
+    .envelope-intro {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        linear-gradient(rgba(20,16,14,0.58), rgba(20,16,14,0.72)),
+        url('https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=85') center/cover no-repeat;
+      transition: opacity 0.85s ease, visibility 0.85s ease;
+      overflow: hidden;
+    }
+
+    .envelope-intro.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-scene {
+      width: min(92vw, 780px);
+      min-height: 620px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1200px;
+    }
+
+    .intro-copy {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      width: 100%;
+      color: rgba(255,248,239,0.92);
+      z-index: 5;
+      pointer-events: none;
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .intro-copy span {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--champagne);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .intro-copy h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(40px, 7vw, 74px);
+      line-height: 0.96;
+      font-weight: 500;
+      text-shadow: 0 24px 80px rgba(0,0,0,0.42);
+    }
+
+    .envelope-wrap {
+      position: relative;
+      width: min(86vw, 560px);
+      height: 360px;
+      margin-top: 120px;
+      cursor: pointer;
+      filter: drop-shadow(0 42px 80px rgba(0,0,0,0.32));
+      transform: translateY(22px);
+      animation: envelopeFloat 2.8s ease-in-out infinite alternate;
+    }
+
+    .letter-card {
+      position: absolute;
+      left: 50%;
+      bottom: 76px;
+      transform: translateX(-50%) translateY(140px) scale(0.88);
+      width: 78%;
+      min-height: 320px;
+      padding: 44px 30px 36px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fffdf9 0%, #fff7ed 100%);
+      border: 1px solid rgba(185,150,91,0.30);
+      text-align: center;
+      opacity: 0;
+      z-index: 1;
+      isolation: isolate;
+      box-shadow:
+        0 30px 90px rgba(0,0,0,0.32),
+        0 0 0 999px rgba(20,16,14,0.08),
+        inset 0 0 0 1px rgba(185,150,91,0.14);
+      transition: transform 1.15s cubic-bezier(.19,1,.22,1), opacity 0.7s ease;
+    }
+
+    .letter-card::before,
+    .letter-card::after {
+      content: "✦";
+      position: absolute;
+      color: rgba(185,150,91,0.45);
+      font-size: 18px;
+    }
+
+    .letter-card::before { left: 28px; top: 28px; }
+    .letter-card::after { right: 28px; bottom: 28px; }
+
+    .letter-card small {
+      display: block;
+      color: var(--gold);
+      letter-spacing: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .letter-card h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(38px, 7vw, 62px);
+      line-height: 0.95;
+      font-weight: 500;
+      color: var(--espresso);
+      margin-bottom: 18px;
+    }
+
+    .letter-card p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .letter-open-btn {
+      position: relative;
+      z-index: 20;
+      width: auto;
+      display: inline-block;
+      padding: 13px 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(185,150,91,0.35);
+      background: linear-gradient(135deg, #1f1b18, #6f5a4a);
+      color: #fff8ef;
+      cursor: pointer;
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      box-shadow: 0 16px 34px rgba(34,26,20,0.18);
+    }
+
+    .letter-open-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .envelope {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 260px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #fff8ed, #e4cfad);
+      border: 1px solid rgba(255,255,255,0.52);
+      overflow: hidden;
+      z-index: 3;
+    }
+
+    .envelope::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(35deg, transparent 49.6%, rgba(185,150,91,0.36) 50%, transparent 50.5%),
+        linear-gradient(-35deg, transparent 49.6%, rgba(185,150,91,0.36) 50%, transparent 50.5%);
+      opacity: 0.9;
+    }
+
+    .envelope-back {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 260px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #fff4df, #dec297);
+      clip-path: polygon(0 0, 50% 62%, 100% 0, 100% 100%, 0 100%);
+      z-index: 2;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      left: 0;
+      bottom: 130px;
+      width: 100%;
+      height: 230px;
+      background: linear-gradient(160deg, #fffaf0, #d9bd91);
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
+      transform-origin: 50% 100%;
+      z-index: 5;
+      transition: transform 1.1s cubic-bezier(.19,1,.22,1), z-index 0.2s ease;
+      border-bottom: 1px solid rgba(185,150,91,0.34);
+    }
+
+    .wax-seal {
+      position: absolute;
+      left: 50%;
+      bottom: 112px;
+      transform: translateX(-50%);
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      z-index: 8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 30% 25%, #f0d58c, #b9965b 55%, #7b5d37 100%);
+      color: #fff8ef;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 34px;
+      box-shadow: 0 16px 42px rgba(0,0,0,0.24), inset 0 0 0 3px rgba(255,255,255,0.24);
+      transition: transform 0.8s ease, opacity 0.5s ease;
+    }
+
+    .open-note {
+      position: absolute;
+      left: 50%;
+      bottom: -72px;
+      transform: translateX(-50%);
+      width: 100%;
+      text-align: center;
+      color: rgba(255,248,239,0.82);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 7;
+      transition: opacity 0.4s ease;
+    }
+
+    .envelope-intro.opened .envelope-flap {
+      transform: rotateX(178deg);
+      z-index: 1;
+    }
+
+    .envelope-intro.opened .letter-card {
+      opacity: 1;
+      z-index: 9;
+      transform: translateX(-50%) translateY(-190px) scale(1);
+    }
+
+    .envelope-intro.opened .intro-copy {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-14px);
+    }
+
+    .envelope-intro.opened .wax-seal {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.55);
+    }
+
+    .envelope-intro.opened .open-note {
+      opacity: 0;
+    }
+
+    @keyframes envelopeFloat {
+      from { transform: translateY(18px); }
+      to { transform: translateY(0); }
+    }
+
+    @media (max-width: 620px) {
+      .envelope-scene {
+        min-height: 560px;
+      }
+
+      .intro-copy {
+        top: 24px;
+      }
+
+      .intro-copy span {
+        letter-spacing: 2px;
+        font-size: 8px;
+      }
+
+      .envelope-wrap {
+        width: min(92vw, 360px);
+        height: 270px;
+        margin-top: 140px;
+      }
+
+      .envelope,
+      .envelope-back {
+        height: 180px;
+      }
+
+      .envelope-flap {
+        height: 160px;
+        bottom: 90px;
+      }
+
+      .wax-seal {
+        width: 58px;
+        height: 58px;
+        bottom: 75px;
+        font-size: 27px;
+      }
+
+      .letter-card {
+        width: 82%;
+        min-height: 250px;
+        bottom: 52px;
+        padding: 32px 18px 26px;
+      }
+
+      .envelope-intro.opened .letter-card {
+        transform: translateX(-50%) translateY(-145px) scale(1);
+      }
+
+      .open-note {
+        bottom: -64px;
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+    }
+
   </style>
 </head>
 <body>
-  <div class="preloader" id="preloader">
-    <div class="preloader-content">
-      <h2>Виталий & Яна</h2>
-      <div class="preloader-line"></div>
-      <p>03 • 07 • 2026</p>
+
+  <div class="envelope-intro" id="envelopeIntro">
+    <div class="envelope-scene">
+      <div class="intro-copy">
+        <span>Wedding invitation</span>
+        <h2>Виталий & Яна</h2>
+      </div>
+
+      <div class="envelope-wrap" id="openEnvelope">
+        <div class="letter-card">
+          <small>03 • 07 • 2026</small>
+          <h3>Мы женимся!</h3>
+          <p>Откройте приглашение, чтобы узнать детали торжества и подтвердить участие.</p>
+          <button type="button" class="letter-open-btn" id="showSiteButton">Перейти к приглашению</button>
+        </div>
+        <div class="envelope-back"></div>
+        <div class="envelope"></div>
+        <div class="envelope-flap"></div>
+        <div class="wax-seal">♡</div>
+        <div class="open-note">Нажмите, чтобы открыть письмо</div>
+      </div>
     </div>
   </div>
+
 
   <div class="luxury-particles">
     <span class="particle"></span>
@@ -1292,6 +1627,10 @@
       
       <div class="info-grid">
         <div class="card">
+    <h3 style="margin-bottom:35px;">Сбор гостей</h3>
+          <p><strong style="font-size:30px;">11:00</strong><br>Гильский клуб</p>
+        </div>
+        <div class="card">
           <h3>ЗАГС</h3>
           <p><strong style="font-size:30px;">14:30</strong><br>р.п. Каргаполье<br>ул. Комсомольская, д. 24</p>
         </div>
@@ -1300,7 +1639,7 @@
           <p><strong style="font-size:30px;">17:00</strong><br>Банкетный зал «Севан»<br>ул. Молодёжная, 2б</p>
         </div>
         <div class="card">
-          <h3>Дата</h3>
+          <h3 style="margin-bottom:35px;">Дата</h3>
           <p><strong style="font-size:30px;">03 июля</strong><br>2026</p>
         </div>
       </div>
@@ -1334,18 +1673,25 @@
       
       <div class="timeline">
         <div class="timeline-item">
-          <div class="time">14:00</div>
-          <div>Сбор гостей</div>
+          <div class="time">11:00</div>
+          <div>Сбор гостей на выкуп</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">12:00–14:00</div>
+          <div>Выкуп невесты</div>
         </div>
         <div class="timeline-item">
           <div class="time">14:30</div>
           <div>Торжественная регистрация</div>
         </div>
         <div class="timeline-item">
+          <div class="time">15:00–17:00</div>
+          <div>Фотосессия</div>
+        </div>
+        <div class="timeline-item">
           <div class="time">17:00</div>
           <div>Банкетный зал «Севан»</div>
         </div>
-        
       </div>
     </div>
   </section>
@@ -1353,29 +1699,70 @@
   <section class="dress-code reveal">
     <div class="container">
       <h2 class="section-title">Дресс-код</h2>
-      <p class="section-subtitle">Будем рады, если вы поддержите спокойную и элегантную палитру праздника.</p>
+      <p class="section-subtitle">Для нас главное — ваше присутствие. Приходите в том образе, в котором вам будет красиво и комфортно.</p>
 
-      <div class="palette">
-        <div class="swatch"><div class="swatch-color c-beige"></div><b>Pantone</b><span>бежевый</span></div>
-        <div class="swatch"><div class="swatch-color c-peach"></div><b>Pantone</b><span>peachy keen</span></div>
-        <div class="swatch"><div class="swatch-color c-sage"></div><b>Pantone</b><span>sage green</span></div>
-        <div class="swatch"><div class="swatch-color c-ice"></div><b>Pantone</b><span>ice water</span></div>
-        <div class="swatch"><div class="swatch-color c-mocha"></div><b>Pantone</b><span>mocha</span></div>
-        <div class="swatch"><div class="swatch-color c-brown"></div><b>Pantone</b><span>pecan pie</span></div>
-        <div class="swatch"><div class="swatch-color c-warm"></div><b>Pantone</b><span>тёплый тёмный</span></div>
-        <div class="swatch"><div class="swatch-color c-black"></div><b>Pantone</b><span>espresso</span></div>
-      </div>
+<div class="palette">
+
+  <div class="swatch">
+    <div class="swatch-color c-beige"></div>
+    <b>PANTONE</b>
+    <span>бежевый</span>
+  </div>
+
+  <div class="swatch">
+    <div class="swatch-color c-peach"></div>
+    <b>PANTONE</b>
+    <span>peachy keen</span>
+  </div>
+
+  <div class="swatch">
+    <div class="swatch-color c-sage"></div>
+    <b>PANTONE</b>
+    <span>sage green</span>
+  </div>
+
+  <div class="swatch">
+    <div class="swatch-color c-ice"></div>
+    <b>PANTONE</b>
+    <span>ice water</span>
+  </div>
+
+  <div class="swatch">
+    <div class="swatch-color c-mocha"></div>
+    <b>PANTONE</b>
+    <span>mocha</span>
+  </div>
+
+  <div class="swatch">
+    <div class="swatch-color c-brown"></div>
+    <b>PANTONE</b>
+    <span>pecan pie</span>
+  </div>
+
+  <div class="swatch">
+    <div class="swatch-color c-warm"></div>
+    <b>PANTONE</b>
+    <span>тёплый тёмный</span>
+  </div>
+
+  <div class="swatch">
+    <div class="swatch-color c-black"></div>
+    <b>PANTONE</b>
+    <span>espresso</span>
+  </div>
+
+</div>
 
       <div class="dress-examples">
         <div class="dress-card">
           <h3>Для девушек</h3>
-          <p>Лёгкие платья, костюмы или комплекты в спокойных оттенках палитры. Лучше выбирать мягкие ткани и элегантный силуэт.</p>
-          <div class="dress-tags"><span>сатин</span><span>миди</span><span>пудровый</span><span>шалфейный</span><span>бежевый</span></div>
+          <p>Платье, костюм или элегантный комплект — главное, чтобы образ был праздничным и удобным для всего дня.</p>
+          <div class="dress-tags"><span>платье</span><span>костюм</span><span>комплект</span><span>элегантно</span><span>удобно</span></div>
         </div>
         <div class="dress-card">
           <h3>Для мужчин</h3>
-          <p>Костюм, рубашка или smart casual в бежевых, коричневых, графитовых и кофейных оттенках.</p>
-          <div class="dress-tags"><span>костюм</span><span>рубашка</span><span>мокко</span><span>espresso</span><span>smart casual</span></div>
+          <p>Костюм, рубашка или smart casual — подойдёт аккуратный праздничный образ без строгих требований к цвету.</p>
+          <div class="dress-tags"><span>костюм</span><span>рубашка</span><span>smart casual</span><span>аккуратно</span><span>празднично</span></div>
         </div>
       </div>
     </div>
@@ -1385,6 +1772,26 @@
     <div class="container">
       <h2 class="section-title">Подтвердите участие</h2>
       <p class="section-subtitle">Пожалуйста, заполните форму, чтобы молодожёны могли заранее всё подготовить.</p>
+
+      <div id="thankYouScreen"
+style="
+display:none;
+max-width:760px;
+margin:0 auto;
+text-align:center;
+padding:60px 30px;
+border-radius:36px;
+background:rgba(255,250,244,0.78);
+border:1px solid rgba(185,150,91,0.28);
+box-shadow:0 24px 70px rgba(67,46,32,0.12);
+">
+        <div style="font-size:55px;margin-bottom:15px;color:#b9965b;">♡</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:42px;margin-bottom:15px;color:#171311;">Спасибо!</h3>
+        <p style="font-size:18px;line-height:1.8;color:#6d5f56;">
+          Ваш ответ успешно отправлен.<br>
+          Если вы ошиблись в данных, можно открыть ссылку ещё раз и отправить новый ответ.
+        </p>
+      </div>
 
       <form name="rsvp" id="rsvpForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="sendForm(event)">
         <input type="hidden" name="form-name" value="rsvp" />
@@ -1411,22 +1818,6 @@
         </div>
 
         <button type="submit">Отправить ответ</button>
-		
-		<div id="successMessage"
-        style="
-        display:none;
-        margin-top:20px;
-        padding:18px;
-        border-radius:18px;
-        background:rgba(141,154,131,0.12);
-        border:1px solid rgba(141,154,131,0.4);
-        text-align:center;
-        color:#4e5d48;
-        font-weight:600;
-        ">
-        ♡ Спасибо! Ваш ответ успешно отправлен
-        </div>
-		
       </form>
     </div>
   </section>
@@ -1437,11 +1828,6 @@
   </footer>
 
   <script>
-    setTimeout(() => {
-      const preloader = document.getElementById('preloader');
-      if (preloader) preloader.classList.add('hide');
-    }, 1800);
-
     function updateCountdown() {
       const weddingDate = new Date('2026-07-03T14:30:00+05:00').getTime();
       const now = new Date().getTime();
@@ -1478,6 +1864,24 @@
 
     revealItems.forEach(item => observer.observe(item));
 
+    const envelopeIntro = document.getElementById('envelopeIntro');
+    const openEnvelope = document.getElementById('openEnvelope');
+    const showSiteButton = document.getElementById('showSiteButton');
+
+    if (openEnvelope && envelopeIntro) {
+      openEnvelope.addEventListener('click', () => {
+        envelopeIntro.classList.add('opened');
+      });
+    }
+
+    if (showSiteButton && envelopeIntro) {
+      showSiteButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        envelopeIntro.classList.add('hidden');
+      });
+    }
+
+
 async function sendForm(event) {
   event.preventDefault();
 
@@ -1501,7 +1905,8 @@ async function sendForm(event) {
       throw new Error('Ошибка отправки');
     }
 
-    document.getElementById('successMessage').style.display='block';
+    form.style.display = 'none';
+    document.getElementById('thankYouScreen').style.display = 'block';
     form.reset();
 
   } catch (error) {
