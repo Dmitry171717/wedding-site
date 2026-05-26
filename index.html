@@ -1852,32 +1852,20 @@ box-shadow:0 24px 70px rgba(67,46,32,0.12);
         </p>
       </div>
 
-      <form name="rsvp" id="rsvpForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="sendForm(event)">
-        <input type="hidden" name="form-name" value="rsvp" />
-        <p style="display:none;">
-          <label>Не заполняйте это поле: <input name="bot-field" /></label>
-        </p>
-        <div class="form-field">
-          <span class="form-icon">♡</span>
-          <input name="name" type="text" placeholder="Ваше ФИО" required />
-        </div>
+      
+<div style="max-width:760px;margin:0 auto;">
+  <script src="https://forms.yandex.ru/_static/embed.js"></script>
 
-        <div class="form-field">
-          <span class="form-icon">✓</span>
-          <select name="attendance" required>
-            <option value="" selected disabled hidden>Вы сможете прийти?</option>
-            <option value="Да, с радостью приду">Да, с радостью приду</option>
-            <option value="К сожалению, не смогу">К сожалению, не смогу</option>
-          </select>
-        </div>
-
-        <div class="form-field textarea-field">
-          <span class="form-icon">✎</span>
-          <textarea name="comment" placeholder="Комментарий или пожелания"></textarea>
-        </div>
-
-        <button type="submit">Отправить ответ</button>
-      </form>
+  <iframe
+    src="https://forms.yandex.ru/u/6a11a85502848f001bb8cb85?iframe=1"
+    frameborder="0"
+    name="ya-form-6a11a85502848f001bb8cb85"
+    width="100%"
+    style="min-height:520px;border-radius:30px;overflow:hidden;"
+  ></iframe>
+</div>
+        
+    
     </div>
   </section>
 
